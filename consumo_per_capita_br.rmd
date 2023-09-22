@@ -1,0 +1,265 @@
+---
+title: "Consumo per capita de carne no Brasil"
+description: "Quantitativo de carne consumido por habitantes"
+author: 
+    - name: "Ítalo Marques-Monteiro"
+    - email: "italo.marques.monteiro@outlook.com"
+    - github: https://github.com/italomarquesmonteiro
+    - kaggle: https://www.kaggle.com/talomarquesmonteiro
+    - linkedin: linkedin.com/in/ítalo-monteiro-0b2516144
+    - lattes: http://lattes.cnpq.br/7174985368517137
+    - orcid_id: https://orcid.org/0000-0003-4367-1034
+    - affiliation: Smart Data  
+        
+date: "2023-09-22"
+output: html_document
+---
+
+[ABIEC](https://www.abiec.com.br)
+[ABPA](https://abpa-br.org)
+[OECD](https://data.oecd.org/)
+[Meat-Consumption](https://data.oecd.org/agroutput/meat-consumption.htm#indicator-chart)
+* Citation: "OECD (2023), Meat consumption (indicator). doi: 10.1787/fa290fd0-en (Accessed on 20 September 2023)"
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+consumo_de_carne <- tibble::tribble(
+    ~especie, ~ano, ~consumo,
+    "Ovina", 1990, 0.676,
+    "Ovina", 1991, 0.672,
+    "Ovina", 1992, 0.668,
+    "Ovina", 1993, 0.689,
+    "Ovina", 1994, 0.664,
+    "Ovina", 1995, 0.702,
+    "Ovina", 1996, 0.553,
+    "Ovina", 1997, 0.562,
+    "Ovina", 1998, 0.564,
+    "Ovina", 1999, 0.584,
+    "Ovina", 2000, 0.550,
+    "Ovina", 2001, 0.520,
+    "Ovina", 2002, 0.498,
+    "Ovina", 2003, 0.487,
+    "Ovina", 2004, 0.518,
+    "Ovina", 2005, 0.521,
+    "Ovina", 2006, 0.531,
+    "Ovina", 2007, 0.530,
+    "Ovina", 2008, 0.533,
+    "Ovina", 2009, 0.524,
+    "Ovina", 2010, 0.529,
+    "Ovina", 2011, 0.527,
+    "Ovina", 2012, 0.533,
+    "Ovina", 2013, 0.546,
+    "Ovina", 2014, 0.547,
+    "Ovina", 2015, 0.555,
+    "Ovina", 2016, 0.548,
+    "Ovina", 2017, 0.532,
+    "Ovina", 2018, 0.523,
+    "Ovina", 2019, 0.520,
+    "Ovina", 2020, 0.521,
+    "Ovina", 2021, 0.522,
+    "Ovina", 2022, 0.521,
+    "Suína", 1990, 5.56,
+    "Suína", 1991, 5.71, 
+    "Suína", 1992, 5.80, 
+    "Suína", 1993, 6.0, 
+    "Suína", 1994, 6.20, 
+    "Suína", 1995, 6.76, 
+    "Suína", 1996, 7.32, 
+    "Suína", 1997, 6.81, 
+    "Suína", 1998, 7.22,
+    "Suína", 1999, 7.24,
+    "Suína", 2000, 14.4,
+    "Suína", 2001, 13.8, 
+    "Suína", 2002, 13.8, 
+    "Suína", 2003, 12.5, 
+    "Suína", 2004, 11.9, 
+    "Suína", 2005, 11.6, 
+    "Suína", 2006, 13.3, 
+    "Suína", 2007, 13.0, 
+    "Suína", 2008, 13.4,
+    "Suína", 2009, 13.7,
+    "Suína", 2010, 14.1,
+    "Suína", 2011, 14.9,
+    "Suína", 2012, 14.9,
+    "Suína", 2013, 14.5,
+    "Suína", 2014, 14.7,
+    "Suína", 2015, 15.1,
+    "Suína", 2016, 14.4,
+    "Suína", 2017, 14.7,
+    "Suína", 2018, 15.9,
+    "Suína", 2019, 15.3,
+    "Suína", 2020, 16.0,
+    "Suína", 2021, 16.7,
+    "Suína", 2022, 18.0,
+    "Frango", 1990, 12.51,
+    "Frango", 1991, 13.81,
+    "Frango", 1992, 14.67,
+    "Frango", 1993, 15.19,
+    "Frango", 1994, 16.60,
+    "Frango", 1995, 20.16,
+    "Frango", 1996, 19.12,
+    "Frango", 1997, 20.61,
+    "Frango", 1998, 22.48,
+    "Frango", 1999, 24.82,
+    "Frango", 2000, 29.9,
+    "Frango", 2001, 31.8,
+    "Frango", 2002, 33.8,
+    "Frango", 2003, 33.3,
+    "Frango", 2004, 33.8,
+    "Frango", 2005, 35.4,
+    "Frango", 2006, 35.6,
+    "Frango", 2007, 37.0,
+    "Frango", 2008, 38.4,
+    "Frango", 2009, 38.4,
+    "Frango", 2010, 44.0,
+    "Frango", 2011, 47.3,
+    "Frango", 2012, 45.0,
+    "Frango", 2013, 41.8,
+    "Frango", 2014, 42.8,
+    "Frango", 2015, 43.3,
+    "Frango", 2016, 41.1,
+    "Frango", 2017, 42.1,
+    "Frango", 2018, 42.0,
+    "Frango", 2019, 42.8,
+    "Frango", 2020, 45.3,
+    "Frango", 2021, 45.6,
+    "Frango", 2022, 45.2,
+    "Bovina", 1990, 20.86,
+    "Bovina", 1991, 20.68,
+    "Bovina", 1993, 20.54,
+    "Bovina", 1994, 23.25,
+    "Bovina", 1995, 25.90,
+    "Bovina", 1996, 26.46,
+    "Bovina", 1997, 24.71,
+    "Bovina", 1998, 23.46,
+    "Bovina", 1999, 24.95,
+    "Bovina", 2000, 25.24,
+    "Bovina", 2001, 24.99,
+    "Bovina", 2002, 25.70,
+    "Bovina", 2003, 29.70,
+    "Bovina", 2004, 27.68,
+    "Bovina", 2005, 29.72,
+    "Bovina", 2006, 32.08,
+    "Bovina", 2007, 30.76,
+    "Bovina", 2008, 26.99,
+    "Bovina", 2009, 25.67,
+    "Bovina", 2010, 26.32,
+    "Bovina", 2011, 25.90,
+    "Bovina", 2012, 26.16,
+    "Bovina", 2013, 27.77,
+    "Bovina", 2014, 26.04,
+    "Bovina", 2015, 24.97,
+    "Bovina", 2016, 25.39,
+    "Bovina", 2017, 25.37,
+    "Bovina", 2018, 42.1, 
+    "Bovina", 2019, 38.7, 
+    "Bovina", 2020, 36.3,
+    "Bovina", 2021, 34.3,
+    "Bovina", 2022, 36.7
+       )
+```
+        
+
+
+```{r}
+consumo_de_carne |>
+    dplyr::filter(especie == "Bovina") |>
+    dplyr::arrange(desc(consumo))
+
+#       Maiores consumos 
+#    especie  ano   consumo
+#    <chr>   <dbl>   <dbl>
+#    Ovina    1995    0.702
+#    Suína    2022    18
+#    Frango   2011    47.3
+#    Bovina   2018    42.1
+consumo_de_carne |>
+    dplyr::group_by(especie) |>
+    dplyr::summarise(media_especie = mean(consumo))
+
+# especie       media_especie
+#  <chr>           <dbl>
+# Bovina           27.7
+# Frango           33.2
+# Suína            12.0
+# Ovina           0.560
+```
+
+
+```{r}
+consumo_de_carne_br <- consumo_de_carne |>
+    ggplot2::ggplot(
+        aes(
+            x = ano,
+                y = consumo,
+                    color = especie)
+        ) +
+    geom_line(size = 2.5) +
+    geom_vline(xintercept = 2022) +
+    geom_hline(yintercept = 29.2, lty = 3, size = 0.8, color = "goldenrod1") +
+    geom_hline(yintercept = 33.2, lty = 3, size = 0.8, color = "coral2") +
+    geom_hline(yintercept = 13.5, lty = 3, size = 0.8, color = "mediumpurple1") +
+    geom_hline(yintercept = 0.56, lty = 3, size = 0.8, color = "#07a0c3") +
+    scale_color_manual(values = c(
+            "Bovina"  = "goldenrod1",
+                "Suína" = "mediumpurple1",
+                    "Frango" = "coral2",
+                        "Ovina" = "#07a0c3")
+                    ) +
+    theme_void() +
+     labs(
+            title = "Consumo per capita de carne no Brasil",
+            subtitle = "kg/habitantes ano
+            by Ítalo Monteiro",
+            x = "Ano",
+            caption = "
+                OECD [ Meat consumption (2023),(indicator). doi: 10.1787/fa290fd0-en (Accessed on 20 September 2023)]
+                ABIEC [Beef Report(2019; 2020; 2021; 2022; 2023) Fonte: https://www.abiec.com.br]
+                ABPA [Relatório Anual(2015; 2016; 2023) Fonte: https://abpa-br.org]
+                UBABEF [Relatório Anual (2013) Fonte: https://abpa-br.org]") +
+        theme(
+            plot.title = element_text(
+                face = "italic", size = 25, hjust = 0.1),
+            plot.subtitle = element_text(
+                family = "italic", size = 15, color = "gray50", hjust = 0.1),
+            plot.caption = element_text(
+                face = "italic", size = 12, color = "gray50"),
+            axis.title.x = element_text(hjust = 0, vjust = -0.5, size =15, face = "italic"),
+            axis.text.x = element_text(size =15, hjust = 1, face = "italic"),
+            plot.margin = margin(
+                rep(15, 4)),
+            panel.background = element_rect(
+                fill = "white", color = "white"),
+            plot.background = element_rect(fill = "white")
+        ) +
+        #medias históricas
+    annotate("text", label = "27,7 kg", x = 1990, y = 30, size = 3.5, colour = "goldenrod1") +
+    annotate("text", label = "33,2 kg", x = 1990, y = 34.2, size = 3.5, colour = "coral2") +
+    annotate("text", label = "14,4 kg", x = 1990, y = 15, size = 3.5, colour = "mediumpurple1") +
+    annotate("text", label = "0.56 kg", x = 1990, y = 2, size = 3.5, colour = "#07a0c3") +
+
+        # maiores consumos
+    annotate("text", label = "42,1 kg", x = 2018, y = 43.5, size = 3.5, colour = "goldenrod1") +
+    annotate("text", label = "47,3 kg", x = 2011, y = 48.3, size = 3.5, colour = "coral2") +
+    annotate("text", label = "0.70 kg", x = 1995, y = 2, size = 3.5, colour = "#07a0c3") +
+
+    guides(color = FALSE) +
+    #ylim(-1, 50) +
+        # consumo em 2022
+    annotate("text", label = "36,7 kg", x = 2023, y = 39, size = 6, colour = "goldenrod1") +
+    annotate("text", label = "45,2 kg", x = 2023, y = 45.5, size = 6, colour = "coral2") +
+    annotate("text", label = "18,0 kg", x = 2023, y = 19, size = 6, colour = "mediumpurple1") +
+    annotate("text", label = "0,52 kg", x = 2023, y = 2, size = 6, colour = "#07a0c3") +
+
+    annotate("text", label = "2022", x = 2023, y = 50.0, size = 8, colour = "black")
+consumo_de_carne_br
+ggsave(
+    "Imagens/consumo_per_capita_especies_br.png",
+        plot = consumo_de_carne_br,
+            dpi = 300,
+                width = 16,
+                    height = 8)
+```
