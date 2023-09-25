@@ -1,0 +1,240 @@
+---
+title: "Consumo per capita de carne no Mundo"
+description: "Quantitativo de carne consumido por habitantes"
+author: 
+    - name: "Ítalo Marques-Monteiro"
+    - email: "italo.marques.monteiro@outlook.com"
+    - github: https://github.com/italomarquesmonteiro
+    - kaggle: https://www.kaggle.com/talomarquesmonteiro
+    - linkedin: linkedin.com/in/ítalo-monteiro-0b2516144
+    - lattes: http://lattes.cnpq.br/7174985368517137
+    - orcid_id: https://orcid.org/0000-0003-4367-1034
+    - affiliation: Smart Data  
+        
+date: "2023-09-22"
+output: html_document
+---
+
+
+[Meat-Consumption](https://data.oecd.org/agroutput/meat-consumption.htm#indicator-chart)
+* Citation: "OECD (2023), Meat consumption (indicator). doi: 10.1787/fa290fd0-en (Accessed on 20 September 2023)"
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+temporario <- readxl::read_xlsx(
+        "c:/Users/italo/OneDrive/Área de Trabalho/VsCode/oecd/meat_consumption_species_countries.xlsx",
+        skip = 2)
+
+meat_consumption <- temporario |>
+    tidyr::pivot_longer(
+        cols = !c(country, species),
+        names_to = "year",
+        values_to = "consumption"
+    )
+```
+
+```{r}
+meat_consumption <-
+    readr::read_csv(
+        "c:/Users/italo/OneDrive/Área de Trabalho/VsCode/oecd/world_meat_consumption.csv") |>
+            dplyr::glimpse()
+```
+
+
+United Nations continent
+```{r}
+meat_consumption <-
+    meat_consumption |>
+        dplyr::mutate(
+            country = as.factor(country),
+            continent = case_when(
+                country == "Argentina" ~ "America",
+                country == "Australia" ~ "Oceania",
+                country == "Brazil" ~ "America",
+                country == "BRICS" ~ "",
+                country == "Canada" ~ "America",
+                country == "Chile" ~ "America",
+                country == "China (People's Republic of)" ~ "Asia",
+                country == "Colombia" ~ "America",
+                country == "Egypt" ~ "Africa",
+                country == "Ethiopia" ~ "Africa",
+                country == "India" ~ "Asia",
+                country == "Indonesia" ~ "Asia",
+                country == "Iran" ~ "Asia",
+                country == "Israel" ~ "Asia",
+                country == "Japan" ~ "Asia",
+                country == "Kazakhstan" ~ "Asia",
+                country == "Korea" ~ "Asia",
+                country == "Malaysia" ~ "Asia",
+                country == "Mexico" ~ "America",
+                country == "New Zealand" ~ "Oceania",
+                country == "Nigeria" ~ "Africa",
+                country == "Norway" ~ "Europe",
+                country == "OECD - Total" ~ "",
+                country == "Pakistan" ~ "Asia",
+                country == "Paraguay" ~ "America",
+                country == "Peru" ~ "America",
+                country == "Philippines" ~ "Asia",
+                country == "Russia" ~ "Europe",
+                country == "Saudi Arabia" ~ "Africa",
+                country == "South Africa" ~ "Africa",
+                country == "Switzerland" ~ "Europe",    
+                country == "Thailand" ~ "Asia",
+                country == "Türkiye" ~ "Europe",
+                country == "Ukraine" ~ "Europe",
+                country == "United Kingdom" ~ "Europe",
+                country == "United States" ~ "America",
+                country == "Viet Nam" ~ "Asia",
+                country == "World" ~ "",
+                TRUE~ NA_character_
+            ), .before = country
+        )
+```
+
+United Nations subregions
+```{r}
+meat_consumption <-
+    meat_consumption |>
+        dplyr::mutate(
+            subregions = case_when(
+                country == "Argentina" ~ "South America",
+                country == "Australia" ~ "Australasia",
+                country == "Brazil" ~ "South America",
+                country == "BRICS" ~ "",
+                country == "Canada" ~ "North America",
+                country == "Chile" ~ "South America",
+                country == "China (People's Republic of)" ~ "East Asia",
+                country == "Colombia" ~ "South America",
+                country == "Egypt" ~ "Northern Africa",
+                country == "Ethiopia" ~ "Eastern Africa",
+                country == "India" ~ "South Asia",
+                country == "Indonesia" ~ "Southeast Asia",
+                country == "Iran" ~ "Western Asia",
+                country == "Israel" ~ "Western Asia",
+                country == "Japan" ~ "East Asia",
+                country == "Kazakhstan" ~ "Central Asia",
+                country == "Korea" ~ "East Asia",
+                country == "Malaysia" ~ "Southeast Asia",
+                country == "Mexico" ~ "North America",
+                country == "New Zealand" ~ "Australasia",
+                country == "Nigeria" ~ "Western Africa",
+                country == "Norway" ~ "Western Europe",
+                country == "OECD - Total" ~ "",
+                country == "Pakistan" ~ "South Asia",
+                country == "Paraguay" ~ "South America",
+                country == "Peru" ~ "South America",
+                country == "Philippines" ~ "Southeast Asia",
+                country == "Russia" ~ "Eastern Europe",
+                country == "Saudi Arabia" ~ "Western Asia",
+                country == "South Africa" ~ " Southern Africa",
+                country == "Switzerland" ~ "Western Europe",   
+                country == "Thailand" ~ "Southeast Asia",
+                country == "Türkiye" ~ "Eastern Europe",
+                country == "Ukraine" ~ "Eastern Europe",
+                country == "United Kingdom" ~ "Western Europe",
+                country == "United States" ~ "North America",
+                country == "Viet Nam" ~ "Southeast Asia",
+                country == "World" ~ "",
+                TRUE~ NA_character_
+            ), .before = country
+        ) |>
+        dplyr::rename(meat = species) |>
+        dplyr::glimpse()
+
+```
+
+```{r}
+meat_consumption |>
+    tibble::view()
+```
+
+
+```{r}
+image_argentina <- data.frame(image = "C:/Users/italo/Downloads/Flag_of_Argentina.png")
+image_brazil <- data.frame(image  = "C:/Users/italo/Downloads/Flag_of_Brazil.png")
+image_united_states <- data.frame(image  = "C:/Users/italo/Downloads/Flag_of_the_United_States.png")
+image_israel <- data.frame(image = "C:/Users/italo/Downloads/Flag_of_Israel.png")
+image_chile <- data.frame(image = "C:/Users/italo/Downloads/Flag_of_Chile.png")
+image_kazakhstan <- data.frame(image = "C:/Users/italo/Downloads/Flag_of_Kazakhstan.png")
+image_australia <- data.frame(image = "C:/Users/italo/Downloads/Flag_of_Australia.png")
+image_canada <- data.frame(image = "C:/Users/italo/Downloads/Flag_of_Canada.png")
+image_norway <- data.frame(image = "C:/Users/italo/Downloads/Flag_of_Norway.png")
+image_switzerland <- data.frame(image = "C:/Users/italo/Downloads/Flag_of_Switzerland.png")
+image_cow <- data.frame(image  = "C:/Users/italo/Downloads/bovinos_plot.png")
+```
+
+
+```{r}
+ranking_beef <- meat_consumption |>
+    dplyr::filter(
+        year == 2022 &
+            meat == "Beef" &
+                !continent == "" &
+                    consumption >= 12.9 ) |>
+    dplyr::arrange(desc(consumption)) 
+ranking_beef <- ranking_beef |>
+    dplyr::mutate(
+        color = case_when(
+          row_number() == 1 ~ "goldenrod2",
+          row_number() == 2 ~ "mediumpurple1",
+          row_number() == 3 ~ "coral2",
+          TRUE ~ "gray70"
+        ),
+        name = glue::glue("<i style='color:{color}'>{country}</i>"))
+
+ranking_beef_world <- ranking_beef |>
+    ggplot2::ggplot(
+        aes(x = consumption, y = reorder(name, consumption))) +
+geom_col(aes(fill = color), alpha = 0.8) +
+    ggimage::geom_image(aes(x = 0.1, y = 10, image = image), data = image_argentina,  size = 0.06) +
+    ggimage::geom_image(aes(x = 0.1, y = 9, image = image), data = image_united_states,  size = 0.06) +
+    ggimage::geom_image(aes(x = 0.1, y = 8, image = image), data = image_brazil,  size = 0.06) +
+    ggimage::geom_image(aes(x = 0.1, y = 7, image = image), data = image_israel,  size = 0.06) +
+    ggimage::geom_image(aes(x = 0.1, y = 6, image = image), data = image_chile,  size = 0.06) +
+    ggimage::geom_image(aes(x = 0.1, y = 5, image = image), data = image_kazakhstan,  size = 0.06) +
+    ggimage::geom_image(aes(x = 0.1, y = 4, image = image), data = image_australia,  size = 0.06) +
+    ggimage::geom_image(aes(x = 0.1, y = 3, image = image), data = image_canada,  size = 0.06) +
+    ggimage::geom_image(aes(x = 0.1, y = 2, image = image), data = image_norway,  size = 0.05) +
+    ggimage::geom_image(aes(x = 0.1, y = 1, image = image), data = image_switzerland,  size = 0.05) +
+    ggimage::geom_image(aes(x = 30, y = 1.5, image = image), data = image_cow,  size = 0.8) +
+    theme_void() +
+    labs(
+        title = "**Beef consumption in 2022**",
+        subtitle = "kg/inhabitants
+        by *Ítalo Monteiro*",
+        x = "**Consumption**",
+        caption = "
+**Source**: OECD [ Meat consumption (2023),(indicator). doi: 10.1787/fa290fd0-en (Accessed on 20 September 2023)]
+**Related countries** : Argentina; Australia; Brazil; Canada; Chile; China (People's Republic of); Colombia; Egypt;              
+Ethiopia; India; Indonesia; Iran; Israel;Japan; Kazakhstan; Korea, Malaysia; Mexico; New Zealand; Nigeria; Norway; 
+Pakistan; Paraguay; Peru; Philippines; Russia; Saudi Arabia; South Africa; Switzerland; Thailand; Türkiye; Ukraine;
+United Kingdom; United States; Viet Nam") +
+    theme(
+        plot.title = ggtext::element_markdown(face = "bold", family = "Fira Sans", size = 25, hjust = 0.1),
+        plot.subtitle = ggtext::element_markdown(face = "bold", family = "Fira Sans", size = 15, color = "gray50", hjust = 0.1),
+        plot.caption = ggtext::element_markdown(face = "italic", family = "Fira Sans", size = 10, color = "gray50"),
+        axis.title.x = ggtext::element_markdown(face = "bold", family = "Fira Sans", hjust = 0, vjust = -0.5, size =15),
+        axis.text.y = ggtext::element_markdown(face = "bold", family = "Fira Sans",size = 15, hjust = 1),
+        #axis.text.x = ggtext::element_markdown(face = "bold", family = "sand",size =15, hjust = 1),
+        plot.margin = margin(rep(15, 4)),
+        panel.background = element_rect(fill = "white", color = "white"),
+        plot.background = element_rect(fill = "white")) +
+    scale_fill_identity(guide = "none") +
+    geom_text(
+        mapping = aes(label = paste0(
+                        consumption, " kg")),
+                            color = "black",
+                                hjust = 1, nudge_x = -.5,
+                                    fontface = "bold",
+                                        size = 5,
+                                            family = "Fira Sans")
+ranking_beef_world
+```
+
+
+```{r}
+ggsave("consumo_imagem/ranking_beef_world.png", plot = ranking_beef_world, dpi = 300, width = 18)
+```
