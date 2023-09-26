@@ -152,21 +152,42 @@ meat_consumption |>
 ```
 
 
+
+Flag of countries and Animals
 ```{r}
-image_argentina <- data.frame(image = "C:/Users/italo/Downloads/Flag_of_Argentina.png")
-image_brazil <- data.frame(image  = "C:/Users/italo/Downloads/Flag_of_Brazil.png")
-image_united_states <- data.frame(image  = "C:/Users/italo/Downloads/Flag_of_the_United_States.png")
-image_israel <- data.frame(image = "C:/Users/italo/Downloads/Flag_of_Israel.png")
-image_chile <- data.frame(image = "C:/Users/italo/Downloads/Flag_of_Chile.png")
-image_kazakhstan <- data.frame(image = "C:/Users/italo/Downloads/Flag_of_Kazakhstan.png")
-image_australia <- data.frame(image = "C:/Users/italo/Downloads/Flag_of_Australia.png")
-image_canada <- data.frame(image = "C:/Users/italo/Downloads/Flag_of_Canada.png")
-image_norway <- data.frame(image = "C:/Users/italo/Downloads/Flag_of_Norway.png")
-image_switzerland <- data.frame(image = "C:/Users/italo/Downloads/Flag_of_Switzerland.png")
+africa_do_sul <- data.frame(image = "C:/Users/italo/Downloads/Flags/Flag_of_South_Africa.png") # nolint
+arabia_saudita <- data.frame(image = "C:/Users/italo/Downloads/Flags/Flag_of_Saudi_Arabia.png")
+argentina <- data.frame(image = "C:/Users/italo/Downloads/Flags/Flag_of_Argentina.png") # nolint
+australia <- data.frame(image = "C:/Users/italo/Downloads/Flags/Flag_of_Australia.png") # nolint
+brazil <- data.frame(image  = "C:/Users/italo/Downloads/Flags/Flag_of_Brazil.png") # nolint
+canada <- data.frame(image = "C:/Users/italo/Downloads/Flags/Flag_of_Canada.png") # nolint
+china <- data.frame(image = "C:/Users/italo/Downloads/Flags/Flag_of_the_People's_Republic_of_China.png") # nolint
+chile <- data.frame(image = "C:/Users/italo/Downloads/Flags/Flag_of_Chile.png")
+inglaterra <- data.frame(image = "C:/Users/italo/Downloads/Flags/Flag_of_the_United_Kingdom.png") # nolint
+iran <- data.frame(image = "C:/Users/italo/Downloads/Flags/Flag_of_Iran.png")
+israel <- data.frame(image = "C:/Users/italo/Downloads/Flags/Flag_of_Israel.png") # nolint
+kazakhstan <- data.frame(image = "C:/Users/italo/Downloads/Flags/Flag_of_Kazakhstan.png") # nolint
+korea <- data.frame(image = "C:/Users/italo/Downloads/Flags/Flag_of_South_Korea.png") # nolint
+malaysia <- data.frame(image = "C:/Users/italo/Downloads/Flags/Flag_of_Malaysia.png") #my-flag.gif # nolint
+newzeland <- data.frame(image = "C:/Users/italo/Downloads/Flags/Flag_of_New_Zealand.png") #nz-flag.gif # nolint
+norway <- data.frame(image = "C:/Users/italo/Downloads/Flags/Flag_of_Norway.png") # nolint
+paraguay <- data.frame(image = "C:/Users/italo/Downloads/Flags/Flag_of_Paraguay.png") # nolint
+peru <- data.frame(image = "C:/Users/italo/Downloads/Flags/pe-flag.gif")
+russia <- data.frame(image = "C:/Users/italo/Downloads/Flags/Flag_of_Russia.png") # nolint
+switzerland <- data.frame(image = "C:/Users/italo/Downloads/Flags/Flag_of_Switzerland.png") # nolint
+turquia <- data.frame(image = "C:/Users/italo/Downloads/Flags/Flag_of_Turkey.png")
+united_states <- data.frame(image  = "C:/Users/italo/Downloads/Flags/Flag_of_the_United_States.png") # nolint
+vietnam <- data.frame(image = "C:/Users/italo/Downloads/Flags/Flag_of_Vietnam.png") # nolint
+# animals
 image_cow <- data.frame(image  = "C:/Users/italo/Downloads/bovinos_plot.png")
+image_poultry <- data.frame(image = "C:/Users/italo/Downloads/poultry_plot.png")
+image_pork <- data.frame(image = "c:/Users/italo/Downloads/pork_plot.png")
+image_sheep <- data.frame(image = "C:/Users/italo/Downloads/plot_sheep.png")
+
 ```
 
 
+Beef meat
 ```{r}
 ranking_beef <- meat_consumption |>
     dplyr::filter(
@@ -189,17 +210,17 @@ ranking_beef_world <- ranking_beef |>
     ggplot2::ggplot(
         aes(x = consumption, y = reorder(name, consumption))) +
 geom_col(aes(fill = color), alpha = 0.8) +
-    ggimage::geom_image(aes(x = 0.1, y = 10, image = image), data = image_argentina,  size = 0.06) +
-    ggimage::geom_image(aes(x = 0.1, y = 9, image = image), data = image_united_states,  size = 0.06) +
-    ggimage::geom_image(aes(x = 0.1, y = 8, image = image), data = image_brazil,  size = 0.06) +
-    ggimage::geom_image(aes(x = 0.1, y = 7, image = image), data = image_israel,  size = 0.06) +
-    ggimage::geom_image(aes(x = 0.1, y = 6, image = image), data = image_chile,  size = 0.06) +
-    ggimage::geom_image(aes(x = 0.1, y = 5, image = image), data = image_kazakhstan,  size = 0.06) +
-    ggimage::geom_image(aes(x = 0.1, y = 4, image = image), data = image_australia,  size = 0.06) +
-    ggimage::geom_image(aes(x = 0.1, y = 3, image = image), data = image_canada,  size = 0.06) +
-    ggimage::geom_image(aes(x = 0.1, y = 2, image = image), data = image_norway,  size = 0.05) +
-    ggimage::geom_image(aes(x = 0.1, y = 1, image = image), data = image_switzerland,  size = 0.05) +
-    ggimage::geom_image(aes(x = 30, y = 1.5, image = image), data = image_cow,  size = 0.8) +
+    ggimage::geom_image(aes(x = 0.1, y = 10, image = image), data = argentina,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 9, image = image), data = united_states,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 8, image = image), data = brazil,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 7, image = image), data = israel,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 6, image = image), data = chile,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 5, image = image), data = kazakhstan,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 4, image = image), data = australia,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 3, image = image), data = canada,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 2, image = image), data = norway,  size = 0.05) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 1, image = image), data = switzerland,  size = 0.05) + # nolint
+    ggimage::geom_image(aes(x = 30, y = 1.5, image = image), data = image_cow,  size = 0.8) + # nolint
     theme_void() +
     labs(
         title = "**Beef consumption in 2022**",
@@ -213,12 +234,12 @@ Ethiopia; India; Indonesia; Iran; Israel;Japan; Kazakhstan; Korea, Malaysia; Mex
 Pakistan; Paraguay; Peru; Philippines; Russia; Saudi Arabia; South Africa; Switzerland; Thailand; Türkiye; Ukraine;
 United Kingdom; United States; Viet Nam") +
     theme(
-        plot.title = ggtext::element_markdown(face = "bold", family = "Fira Sans", size = 25, hjust = 0.1),
-        plot.subtitle = ggtext::element_markdown(face = "bold", family = "Fira Sans", size = 15, color = "gray50", hjust = 0.1),
-        plot.caption = ggtext::element_markdown(face = "italic", family = "Fira Sans", size = 10, color = "gray50"),
-        axis.title.x = ggtext::element_markdown(face = "bold", family = "Fira Sans", hjust = 0, vjust = -0.5, size =15),
-        axis.text.y = ggtext::element_markdown(face = "bold", family = "Fira Sans",size = 15, hjust = 1),
-        #axis.text.x = ggtext::element_markdown(face = "bold", family = "sand",size =15, hjust = 1),
+        plot.title = ggtext::element_markdown(face = "bold", family = "Fira Sans", size = 25, hjust = 0.1), # nolint
+        plot.subtitle = ggtext::element_markdown(face = "bold", family = "Fira Sans", size = 15, color = "gray50", hjust = 0.1), # nolint
+        plot.caption = ggtext::element_markdown(face = "italic", family = "Fira Sans", size = 10, color = "gray50"), # nolint
+        axis.title.x = ggtext::element_markdown(face = "bold", family = "Fira Sans", hjust = 0, vjust = -0.5, size =15), # nolint
+        axis.text.y = ggtext::element_markdown(face = "bold", family = "Fira Sans",size = 15, hjust = 1), # nolint
+        #axis.text.x = ggtext::element_markdown(face = "bold", family = "sand",size =15, hjust = 1), # nolint
         plot.margin = margin(rep(15, 4)),
         panel.background = element_rect(fill = "white", color = "white"),
         plot.background = element_rect(fill = "white")) +
@@ -234,7 +255,243 @@ United Kingdom; United States; Viet Nam") +
 ranking_beef_world
 ```
 
+```{r}
+ggsave("consumo_imagem/ranking_beef_world.png", plot = ranking_beef_world, dpi = 300, width = 18) # nolint
+```
+
+
+Chicken meat
+```{r}
+ranking_poultry <- meat_consumption |>
+    dplyr::filter(
+        year == 2022 &
+            meat == "Poultry" &
+                !continent == "" &
+                  consumption >= 36.0) |>
+    dplyr::arrange(desc(consumption))
+ranking_poultry <- ranking_poultry |>
+    dplyr::mutate(
+        color = case_when(
+          row_number() == 1 ~ "goldenrod2",
+          row_number() == 2 ~ "mediumpurple1",
+          row_number() == 3 ~ "coral2",
+          row_number() == 6 ~ "gray50",
+          TRUE ~ "gray70"
+        ),
+        name = glue::glue("<i style='color:{color}'>{country}</i>")
+  )
+
+ranking_poultry_world <- ranking_poultry |>
+    ggplot2::ggplot(
+        aes(x = consumption, y = reorder(name, consumption))) +
+geom_col(aes(fill = color), alpha = 0.8) +
+    ggimage::geom_image(aes(x = 0.1, y = 10, image = image), data = israel,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 9, image = image), data = united_states,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 8, image = image), data = malaysia,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 7, image = image), data = peru,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 6, image = image), data = australia,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 5, image = image), data = brazil,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 4, image = image), data = newzeland,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 3, image = image), data = argentina,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 2, image = image), data = chile,  size = 0.05) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 1, image = image), data = canada,  size = 0.05) + # nolint
+    ggimage::geom_image(aes(x = 57, y = 2, image = image), data = image_poultry,  size = 0.3) + # nolint
+    theme_void() +
+    labs(
+        title = "**Chicken meat consumption in 2022**",
+        subtitle = "kg/inhabitants
+        by *Ítalo Monteiro*",
+        x = "**Consumption**",
+        caption = "
+**Source**: OECD [ Meat consumption (2023),(indicator). doi: 10.1787/fa290fd0-en (Accessed on 20 September 2023)]
+**Related countries** : Argentina; Australia; Brazil; Canada; Chile; China (People's Republic of); Colombia; Egypt;              
+Ethiopia; India; Indonesia; Iran; Israel;Japan; Kazakhstan; Korea, Malaysia; Mexico; New Zealand; Nigeria; Norway; 
+Pakistan; Paraguay; Peru; Philippines; Russia; Saudi Arabia; South Africa; Switzerland; Thailand; Türkiye; Ukraine;
+United Kingdom; United States; Viet Nam") +
+    theme(
+        plot.title = ggtext::element_markdown(face = "bold", family = "Fira Sans", size = 25, hjust = 0.1), # nolint
+        plot.subtitle = ggtext::element_markdown(face = "bold", family = "Fira Sans", size = 15, color = "gray50", hjust = 0.1), # nolint
+        plot.caption = ggtext::element_markdown(face = "italic", family = "Fira Sans", size = 10, color = "gray50"), # nolint
+        axis.title.x = ggtext::element_markdown(face = "bold", family = "Fira Sans", hjust = 0, vjust = -0.5, size =15), # nolint
+        axis.text.y = ggtext::element_markdown(face = "bold", family = "Fira Sans",size = 15, hjust = 1), # nolint
+        #axis.text.x = ggtext::element_markdown(face = "bold", family = "sand",size =15, hjust = 1), # nolint
+        plot.margin = margin(rep(15, 4)),
+        panel.background = element_rect(fill = "white", color = "white"),
+        plot.background = element_rect(fill = "white")) +
+    scale_fill_identity(guide = "none") +
+    geom_text(
+        mapping = aes(label = paste0(
+                        consumption, " kg")),
+                            color = "black",
+                                hjust = 1, nudge_x = -.5,
+                                    fontface = "bold",
+                                        size = 5,
+                                            family = "Fira Sans") +
+    annotate("text", x = 57, y = 0.5, size = 2, label = "Source: Getty Images/iStockphoto", color = "gray50") # nolint
+
+ranking_poultry_world
+```
 
 ```{r}
-ggsave("consumo_imagem/ranking_beef_world.png", plot = ranking_beef_world, dpi = 300, width = 18)
+ggsave("consumo_imagem/ranking_poultry_world.png", plot = ranking_poultry_world, dpi = 300, width = 18) # nolint
+```
+
+
+pork meat 
+```{r}
+ranking_pork <- meat_consumption |>
+    dplyr::filter(
+        year == 2022 &
+            meat == "Pork" &
+                !continent == "" &
+                  consumption >= 20.0) |>
+    dplyr::arrange(desc(consumption))
+ranking_pork <- ranking_pork |>
+    dplyr::mutate(
+        country = case_when(
+            country == "China (People's Republic of)" ~ "China",
+            country == "Viet Nam" ~ "Vietnam",
+            TRUE ~ country
+        ),
+        color = case_when(
+          row_number() == 1 ~ "goldenrod2",
+          row_number() == 2 ~ "mediumpurple1",
+          row_number() == 3 ~ "coral2",
+          TRUE ~ "gray70"
+        ),
+        name = glue::glue("<i style='color:{color}'>{country}</i>") 
+  )
+
+ranking_pork_world <- ranking_pork |>
+    ggplot2::ggplot(
+        aes(x = consumption, y = reorder(name, consumption))) +
+geom_col(aes(fill = color), alpha = 0.8) +
+    ggimage::geom_image(aes(x = 0.1, y = 10, image = image), data = korea,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 9, image = image), data = vietnam,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 8, image = image), data = china,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 7, image = image), data = chile,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 6, image = image), data = united_states,  size = 0.065) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 5, image = image), data = switzerland,  size = 0.045) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 4, image = image), data = paraguay,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 3, image = image), data = norway,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 2, image = image), data = russia,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 1, image = image), data = australia,  size = 0.065) + # nolint
+    ggimage::geom_image(aes(x = 29, y = 2, image = image), data = image_pork,  size = 0.2) + # nolint
+    theme_void() +
+    labs(
+        title = "**Pork consumption in 2022**",
+        subtitle = "kg/inhabitants
+        by *Ítalo Monteiro*",
+        x = "**Consumption**",
+        caption = "
+**Source**: OECD [ Meat consumption (2023),(indicator). doi: 10.1787/fa290fd0-en (Accessed on 20 September 2023)]
+**Related countries** : Argentina; Australia; Brazil; Canada; Chile; China (People's Republic of); Colombia; Egypt;              
+Ethiopia; India; Indonesia; Iran; Israel;Japan; Kazakhstan; Korea, Malaysia; Mexico; New Zealand; Nigeria; Norway; 
+Pakistan; Paraguay; Peru; Philippines; Russia; Saudi Arabia; South Africa; Switzerland; Thailand; Türkiye; Ukraine;
+United Kingdom; United States; Viet Nam") +
+    theme(
+        plot.title = ggtext::element_markdown(face = "bold", family = "Fira Sans", size = 25, hjust = 0.1), # nolint
+        plot.subtitle = ggtext::element_markdown(face = "bold", family = "Fira Sans", size = 15, color = "gray50", hjust = 0.1), # nolint
+        plot.caption = ggtext::element_markdown(face = "italic", family = "Fira Sans", size = 10, color = "gray50"), # nolint
+        axis.title.x = ggtext::element_markdown(face = "bold", family = "Fira Sans", hjust = 0, vjust = -0.5, size =15), # nolint
+        axis.text.y = ggtext::element_markdown(face = "bold", family = "Fira Sans",size = 15, hjust = 1), # nolint
+        #axis.text.x = ggtext::element_markdown(face = "bold", family = "sand",size =15, hjust = 1), # nolint
+        plot.margin = margin(rep(15, 4)),
+        panel.background = element_rect(fill = "white", color = "white"),
+        plot.background = element_rect(fill = "white")) +
+    scale_fill_identity(guide = "none") +
+    geom_text(
+        mapping = aes(label = paste0(
+                        consumption, " kg")),
+                            color = "black",
+                                hjust = 1, nudge_x = -.5,
+                                    fontface = "bold",
+                                        size = 5,
+                                            family = "Fira Sans") +
+    annotate("text", x = 29, y = 0.5, size = 2, label = "Source: freepik", color = "gray50") # nolint
+
+ranking_pork_world
+```
+
+```{r}
+ggsave("consumo_imagem/ranking_pork_world.png", plot = ranking_pork_world, dpi = 300, width = 18) # nolint
+```
+
+
+Sheep meat
+```{r}
+ranking_sheep <- meat_consumption |>
+    dplyr::filter(
+        year == 2022 &
+            meat == "Sheep" &
+                !continent == "" &
+                  consumption >= 2.56) |>
+    dplyr::arrange(desc(consumption))
+ranking_sheep <- ranking_sheep |>
+    dplyr::mutate(
+        country = case_when(
+            country == "China (People's Republic of)" ~ "China",
+            country == "Viet Nam" ~ "Vietnam",
+            TRUE ~ country
+        ),
+        color = case_when(
+          row_number() == 1 ~ "goldenrod2",
+          row_number() == 2 ~ "mediumpurple1",
+          row_number() == 3 ~ "coral2",
+          TRUE ~ "gray70"
+        ),
+        name = glue::glue("<i style='color:{color}'>{country}</i>") 
+  )
+
+ranking_sheep_world <- ranking_sheep |>
+    ggplot2::ggplot(
+        aes(x = consumption, y = reorder(name, consumption))) +
+geom_col(aes(fill = color), alpha = 0.8) +
+    ggimage::geom_image(aes(x = 0.1, y = 10, image = image), data = kazakhstan,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 9, image = image), data = australia,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 8, image = image), data = norway,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 7, image = image), data = arabia_saudita,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 6, image = image), data = turquia,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 5, image = image), data = iran,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 4, image = image), data = inglaterra,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 3, image = image), data = china,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 2, image = image), data = newzeland,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 0.1, y = 1, image = image), data = africa_do_sul,  size = 0.06) + # nolint
+    ggimage::geom_image(aes(x = 7, y = 2, image = image), data = image_sheep,  size = 0.3) + # nolint
+    theme_void() +
+    labs(
+        title = "**Sheep consumption in 2022**",
+        subtitle = "kg/inhabitants
+        by *Ítalo Monteiro*",
+        x = "**Consumption**",
+        caption = "
+**Source**: OECD [ Meat consumption (2023),(indicator). doi: 10.1787/fa290fd0-en (Accessed on 20 September 2023)]
+**Related countries** : Argentina; Australia; Brazil; Canada; Chile; China (People's Republic of); Colombia; Egypt;              
+Ethiopia; India; Indonesia; Iran; Israel;Japan; Kazakhstan; Korea, Malaysia; Mexico; New Zealand; Nigeria; Norway; 
+Pakistan; Paraguay; Peru; Philippines; Russia; Saudi Arabia; South Africa; Switzerland; Thailand; Türkiye; Ukraine;
+United Kingdom; United States; Viet Nam") +
+    theme(
+        plot.title = ggtext::element_markdown(face = "bold", family = "Fira Sans", size = 25, hjust = 0.1), # nolint
+        plot.subtitle = ggtext::element_markdown(face = "bold", family = "Fira Sans", size = 15, color = "gray50", hjust = 0.1), # nolint
+        plot.caption = ggtext::element_markdown(face = "italic", family = "Fira Sans", size = 10, color = "gray50"), # nolint
+        axis.title.x = ggtext::element_markdown(face = "bold", family = "Fira Sans", hjust = 0, vjust = -0.5, size =15), # nolint
+        axis.text.y = ggtext::element_markdown(face = "bold", family = "Fira Sans",size = 15, hjust = 1), # nolint
+        #axis.text.x = ggtext::element_markdown(face = "bold", family = "sand",size =15, hjust = 1), # nolint
+        plot.margin = margin(rep(15, 4)),
+        panel.background = element_rect(fill = "white", color = "white"),
+        plot.background = element_rect(fill = "white")) +
+    scale_fill_identity(guide = "none") +
+    geom_text(
+        mapping = aes(label = paste0(
+                        consumption, " kg")),
+                            color = "black",
+                                hjust = 1, nudge_x = -.5,
+                                    fontface = "bold",
+                                        size = 5,
+                                            family = "Fira Sans")
+ranking_sheep_world
+```
+
+```{r}
+ggsave("consumo_imagem/ranking_sheep_world.png", plot = ranking_sheep_world, dpi = 300, width = 18) # nolint
 ```
